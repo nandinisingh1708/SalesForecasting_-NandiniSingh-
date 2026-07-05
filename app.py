@@ -18,7 +18,10 @@ df['Year'] = df['Order Date'].dt.year
 df['Month'] = df['Order Date'].dt.month
 
 # Monthly aggregation
-monthly_sales = df.groupby('Order Date')['Sales'].sum().resample('M').sum()
+df['Order Date'] = pd.to_datetime(df['Order Date'])
+df = df.set_index('Order Date')
+
+monthly_sales = df['Sales'].resample('ME').sum()
 
 
 # SIDEBAR NAVIGATION
